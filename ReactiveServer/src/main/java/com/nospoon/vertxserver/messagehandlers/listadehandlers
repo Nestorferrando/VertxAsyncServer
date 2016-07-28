@@ -1,0 +1,5 @@
+LoginHandler, gestiona el login, attachea al player un hallHandler
+HallHandler, mantiene una lista de salasHandler, las instancia/elimina si es necesario
+SalaHandler, mantiene una lista de mesasHandler, las instancia/elimina si es necesario
+mesaHandler, se encarga de gestional el inicio de la partida. Instancia un handler de la partida
+partidaHandler, se encarga de la mensajeria de la partida, ect, informa de la mesa que han finalizado
