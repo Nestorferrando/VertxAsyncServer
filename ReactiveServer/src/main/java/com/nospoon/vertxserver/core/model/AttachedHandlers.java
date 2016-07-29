@@ -33,6 +33,8 @@ public class AttachedHandlers {
         return handlers.keySet().stream().collect(Collectors.toList());
     }
 
-
+    public List<MessageHandler> getHandlers() {
+        return handlers.values().stream().collect(Collectors.toList());
+    }
 
 }

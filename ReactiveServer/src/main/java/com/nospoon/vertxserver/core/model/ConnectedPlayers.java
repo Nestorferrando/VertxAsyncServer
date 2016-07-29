@@ -32,7 +32,7 @@ public class ConnectedPlayers {
         return reverseList.get(player);
     }
 
-    public AttachedHandlers getHandlers(Player player) {
+    public AttachedHandlers getAssignedHandlers(Player player) {
         return playerHandlers.get(player);
     }
     public MessageQueue getQueue(Player player) {

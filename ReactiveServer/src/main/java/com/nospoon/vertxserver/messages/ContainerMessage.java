@@ -5,7 +5,19 @@ package com.nospoon.vertxserver.messages;
  */
 public class ContainerMessage {
 
-    public String fullyQualifiedMessageName;
-    public String serializedMessage;
+    private String fullyQualifiedMessageName;
+    private String serializedMessage;
 
+    public ContainerMessage(String fullyQualifiedMessageName, String serializedMessage) {
+        this.fullyQualifiedMessageName = fullyQualifiedMessageName;
+        this.serializedMessage = serializedMessage;
+    }
+
+    public String getFullyQualifiedMessageName() {
+        return fullyQualifiedMessageName;
+    }
+
+    public String getSerializedMessage() {
+        return serializedMessage;
+    }
 }

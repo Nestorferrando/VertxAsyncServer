@@ -3,7 +3,6 @@ package com.nospoon.vertxserver.core.messagehandlers;
 import com.nospoon.vertxserver.core.dbapi.DBApi;
 import com.nospoon.vertxserver.core.model.ConnectedPlayers;
 import com.nospoon.vertxserver.core.model.Player;
-import com.nospoon.vertxserver.messagehandlers.LoginHandler;
 
 import java.util.List;
 
@@ -47,12 +46,12 @@ public class HandlerUtils {
 
     public void attachHandlerToPlayers(MessageHandler handler, List<Player> players)
     {
-        players.forEach(player -> {connected.getHandlers(player).addHandler(handler);handler.playerAttached(player);});
+        players.forEach(player -> {connected.getAssignedHandlers(player).addHandler(handler);handler.playerAttached(player);});
     }
 
     public void detachHandlerToPlayers(MessageHandler handler, List<Player> players)
     {
-        players.forEach(player -> {connected.getHandlers(player).removeHandler(handler.getClass());handler.playerAttached(player);});
+        players.forEach(player -> {connected.getAssignedHandlers(player).removeHandler(handler.getClass());handler.playerAttached(player);});
     }
 
 
