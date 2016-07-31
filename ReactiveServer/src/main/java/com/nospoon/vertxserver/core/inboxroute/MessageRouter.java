@@ -1,17 +1,14 @@
 package com.nospoon.vertxserver.core.inboxroute;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nospoon.jpromises.Promise;
 import com.nospoon.jpromises.Promises;
 import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
 import com.nospoon.vertxserver.core.model.ConnectedPlayers;
 import com.nospoon.vertxserver.core.model.Player;
-import com.nospoon.vertxserver.messages.ContainerMessage;
+import com.nospoon.vertxserver.messages.MessageUtils;
 import io.vertx.core.net.NetSocket;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +18,6 @@ import java.util.List;
 public class MessageRouter {
 
     private ConnectedPlayers players;
-    private Gson gson = new GsonBuilder().create();
 
     public MessageRouter(ConnectedPlayers players) {
         this.players = players;
@@ -30,32 +26,10 @@ public class MessageRouter {
 
     public void enRouteMessage(NetSocket origin, String serializedMsgs) {
 
-        splitBufferIntoJSONS(serializedMsgs).forEach(serializedMsg -> {
-            try {
-                ContainerMessage container = gson.fromJson(serializedMsg, ContainerMessage.class);
-                Class c = Class.forName(container.getFullyQualifiedMessageName());
-                Object msg = gson.fromJson(container.getSerializedMessage(), c);
-                Player player = players.getPlayer(origin);
-                players.getQueue(player).enqueueHandler((input) -> handleMessageForPlayer(msg, player));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        MessageUtils.deserialize(serializedMsgs).forEach(msg -> {
+            Player player = players.getPlayer(origin);
+            players.getQueue(player).enqueueHandler((input) -> handleMessageForPlayer(msg, player));
         });
-
-
-    }
-
-    private List<String> splitBufferIntoJSONS(String buffer) {
-        List<String> splitted = new ArrayList<>();
-        String bufferTemp = buffer;
-        int tokenIndex = bufferTemp.indexOf("}{");
-        while (tokenIndex > -1) {
-            splitted.add(bufferTemp.substring(0, tokenIndex + 1));
-            bufferTemp = bufferTemp.substring(tokenIndex + 1, bufferTemp.length());
-            tokenIndex = bufferTemp.indexOf("}{");
-        }
-        splitted.add(bufferTemp);
-        return splitted;
     }
 
     private Promise<Void> handleMessageForPlayer(Object message, Player player) {

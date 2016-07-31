@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %-5p [%t] %-30.30C{2} | %m | (%F:%L)%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+
+
+		<Root level="trace">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+
+	</Loggers>
+
+</Configuration>

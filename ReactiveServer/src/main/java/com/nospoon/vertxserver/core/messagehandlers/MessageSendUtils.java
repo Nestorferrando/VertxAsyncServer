@@ -3,7 +3,8 @@ package com.nospoon.vertxserver.core.messagehandlers;
 import com.google.gson.Gson;
 import com.nospoon.vertxserver.core.model.ConnectedPlayers;
 import com.nospoon.vertxserver.core.model.Player;
-import com.nospoon.vertxserver.messages.ContainerMessage;
+import com.nospoon.vertxserver.messages.MessageUtils;
+import io.vertx.core.buffer.Buffer;
 
 import java.util.List;
 
@@ -21,18 +22,21 @@ public class MessageSendUtils {
     }
 
     public void sendToPlayer(Player player, Object msg) {
-        ContainerMessage container = createContainer(msg);
-        connected.getSocket(player).write(gson.toJson(container));
+
+        connected.getSocket(player).write(Buffer.buffer(MessageUtils.serialize(msg)));
+
     }
 
     public void sendToPlayers(List<Player> players, Object msg) {
-        ContainerMessage container = createContainer(msg);
-        players.forEach(player-> connected.getSocket(player).write(gson.toJson(container)));
+        String stream =MessageUtils.serialize(msg);
+        players.forEach(player-> connected.getSocket(player).write(Buffer.buffer(stream)));
     }
 
-    private ContainerMessage createContainer(Object msg) {
-        String name = msg.getClass().getCanonicalName();
-        return new ContainerMessage(name, gson.toJson(msg));
+
+    public void sendToPlayersBut(List<Player> players, Player rejectedPlayer, Object msg) {
+        String stream =MessageUtils.serialize(msg);
+        players.forEach(player->{if (!player.equals(rejectedPlayer))connected.getSocket(player).write(Buffer.buffer(stream));});
     }
+
 
 }
