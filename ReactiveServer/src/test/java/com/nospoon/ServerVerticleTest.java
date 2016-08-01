@@ -1,7 +1,7 @@
 package com.nospoon;
 
 import com.google.gson.Gson;
-import com.nospoon.client.SampleClient;
+import com.nospoon.client.ClientVerticle;
 import com.nospoon.vertxserver.core.ServerVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.unit.Async;
@@ -35,15 +35,10 @@ public class ServerVerticleTest {
     public void testMyApplication(TestContext context) {
         final Async async = context.async();
 
+        vertx.eventBus().consumer("CLIENT_FINISHED", (result) -> async.complete());
 
-        vertx.createNetClient().connect(10003, "localhost", res -> {
-            if (res.succeeded()) {
-                SampleClient client = new SampleClient(2500, res.result());
-                client.performSession().then((a) -> async.complete());
-            } else {
-                System.err.println("Connection error!!");
-                async.complete();
-            }
-        });
+        vertx.deployVerticle(ClientVerticle.class.getName());
+
+
     }
 }

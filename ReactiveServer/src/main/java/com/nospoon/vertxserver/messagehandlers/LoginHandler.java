@@ -15,11 +15,9 @@ public class LoginHandler extends MessageHandler {
 
     public Promise<Void> on(Ping request, Player player) {
 
-
         System.out.println("Net server received: " + request.toString());
         sendManager().sendToPlayer(player, new Pong("Me cago en tus muertos"));
         return Promises.resolve(null);
-
     }
 
 

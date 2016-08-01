@@ -7,9 +7,6 @@ import com.nospoon.vertxserver.core.messagehandlers.HandlerUtils;
 import com.nospoon.vertxserver.core.model.ConnectedPlayers;
 import com.nospoon.vertxserver.core.model.Player;
 import com.nospoon.vertxserver.messagehandlers.LoginHandler;
-import com.nospoon.vertxserver.messages.MessageUtils;
-import com.nospoon.vertxserver.messages.fromserver.Pong;
-import io.netty.handler.logging.LogLevel;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.net.NetServerOptions;
@@ -42,15 +39,13 @@ public class ServerVerticle extends AbstractVerticle {
             Player player = new Player(sessionID);
             connections.addPlayer(player, socket);
 
-            logger.info("Connecion established, ip "+socket.remoteAddress());
+            logger.info("Connecion established, ip " + socket.remoteAddress());
             //add first handler
             new HandlerUtils(connections, api).createHandlerFor(LoginHandler.class, Arrays.asList(player));
 
 
             socket.handler(buffer -> {
-                //router.enRouteMessage(socket, buffer.getString(0, buffer.length()));
-                socket.write(MessageUtils.serialize(new Pong("que te jodan cabronazo hijo de puta que te jodan cabronazo hijo de puta que te jodan cabronazo hijo de puta")));
-
+                router.enRouteMessage(socket, buffer.getString(0, buffer.length()));
             });
 
             socket.closeHandler((handler) -> {
@@ -59,7 +54,6 @@ public class ServerVerticle extends AbstractVerticle {
                 connections.removePlayer(socket);
 
             });
-
 
             socket.exceptionHandler((error) -> {
                 System.out.println("Socket error");
