@@ -43,20 +43,11 @@ public class ServerVerticle extends AbstractVerticle {
             //add first handler
             new HandlerUtils(connections, api).createHandlerFor(LoginHandler.class, Arrays.asList(player));
 
-
-            socket.handler(buffer -> {
-                router.enRouteMessage(socket, buffer.getString(0, buffer.length()));
-            });
-
-            socket.closeHandler((handler) -> {
-
-                System.out.println("Socket cerrado");
-                connections.removePlayer(socket);
-
-            });
+            socket.handler(buffer -> router.enRouteMessage(socket, buffer.getString(0, buffer.length())));
+            socket.closeHandler((handler) -> connections.removePlayer(socket));
 
             socket.exceptionHandler((error) -> {
-                System.out.println("Socket error");
+                logger.error("Socket error " + error.toString());
             });
 
         })

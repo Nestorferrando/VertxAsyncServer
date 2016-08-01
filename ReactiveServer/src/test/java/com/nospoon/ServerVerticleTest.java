@@ -1,7 +1,7 @@
 package com.nospoon;
 
 import com.google.gson.Gson;
-import com.nospoon.client.ClientVerticle;
+import com.nospoon.vertxserver.client.ClientVerticle;
 import com.nospoon.vertxserver.core.ServerVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.unit.Async;

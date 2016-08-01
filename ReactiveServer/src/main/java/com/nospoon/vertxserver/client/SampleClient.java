@@ -1,4 +1,4 @@
-package com.nospoon.client;
+package com.nospoon.vertxserver.client;
 
 import com.nospoon.jpromises.Deferred;
 import com.nospoon.jpromises.Promise;

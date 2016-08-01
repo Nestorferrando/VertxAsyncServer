@@ -1,4 +1,4 @@
-package com.nospoon.client;
+package com.nospoon.vertxserver.client;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
