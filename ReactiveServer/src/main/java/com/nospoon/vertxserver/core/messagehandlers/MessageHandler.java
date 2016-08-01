@@ -6,14 +6,14 @@ import com.nospoon.vertxserver.core.model.Player;
 /**
  * Created by Nestor on 7/26/2016.
  */
-public abstract class MessageHandler {
+public abstract class MessageHandler<T extends DBApi> {
 
-    private DBApi dbApi;
+    private T dbApi;
     private HandlerUtils handlerManager;
     private MessageSendUtils sendManager;
 
 
-    MessageHandler initialize(DBApi dbApi, HandlerUtils handlerManager, MessageSendUtils sendManager) {
+    MessageHandler initialize(T dbApi, HandlerUtils handlerManager, MessageSendUtils sendManager) {
         this.dbApi = dbApi;
         this.handlerManager = handlerManager;
         this.sendManager = sendManager;

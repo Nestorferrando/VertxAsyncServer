@@ -9,19 +9,19 @@ import java.util.List;
 /**
  * Created by Nestor on 7/27/2016.
  */
-public class HandlerUtils {
+public class HandlerUtils<S extends DBApi> {
 
 
     private ConnectedPlayers connected;
-    private DBApi api;
+    private S api;
 
-    public HandlerUtils(ConnectedPlayers connected, DBApi api) {
+    public HandlerUtils(ConnectedPlayers connected, S api) {
         this.connected = connected;
         this.api = api;
     }
 
 
-    public<T extends MessageHandler> T  createHandler(Class<T> handlerType)
+    public<T extends MessageHandler<S>> T  createHandler(Class<T> handlerType)
     {
         try {
             T handler = handlerType.newInstance();
@@ -36,7 +36,7 @@ public class HandlerUtils {
         return null;
     }
 
-    public<T extends MessageHandler> T  createHandlerFor(Class<T> handlerType, List<Player> playersToAttach)
+    public<T extends MessageHandler<S>> T  createHandlerFor(Class<T> handlerType, List<Player> playersToAttach)
     {
         T handler = createHandler(handlerType);
         attachHandlerToPlayers(handler,playersToAttach);

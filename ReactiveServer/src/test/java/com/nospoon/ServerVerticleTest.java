@@ -1,8 +1,8 @@
 package com.nospoon;
 
 import com.google.gson.Gson;
+import com.nospoon.vertxserver.PingPongServerVerticle;
 import com.nospoon.vertxserver.client.ClientVerticle;
-import com.nospoon.vertxserver.core.ServerVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
@@ -22,7 +22,7 @@ public class ServerVerticleTest {
     @Before
     public void setUp(TestContext context) {
         vertx = Vertx.vertx();
-        vertx.deployVerticle(ServerVerticle.class.getName(),
+        vertx.deployVerticle(PingPongServerVerticle.class.getName(),
                 context.asyncAssertSuccess());
     }
 

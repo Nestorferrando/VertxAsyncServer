@@ -10,7 +10,7 @@ import com.nospoon.vertxserver.messages.fromserver.Pong;
 /**
  * Created by Nestor on 7/26/2016.
  */
-public class LoginHandler extends MessageHandler {
+public class PingPongHandler extends MessageHandler {
 
 
     public Promise<Void> on(Ping request, Player player) {
