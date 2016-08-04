@@ -14,11 +14,9 @@ import java.util.List;
 public class MessageSendUtils {
 
     private ConnectedPlayers connected;
-    private Gson gson;
 
     MessageSendUtils(ConnectedPlayers connected) {
         this.connected = connected;
-        gson = new Gson();
     }
 
     public void sendToPlayer(Player player, Object msg) {

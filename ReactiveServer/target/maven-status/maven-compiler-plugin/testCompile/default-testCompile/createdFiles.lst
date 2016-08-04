@@ -1,1 +1,8 @@
-com\nospoon\MyFirstVerticleTest.class
+com\nospoon\vertxserver\api\FakeDBApi.class
+com\nospoon\vertxserver\messagehandlers\PingPongHandler.class
+com\nospoon\vertxserver\client\SampleClient.class
+com\nospoon\ServerVerticleTest.class
+com\nospoon\vertxserver\messages\fromclient\Ping.class
+com\nospoon\vertxserver\client\ClientVerticle.class
+com\nospoon\vertxserver\messages\fromserver\Pong.class
+com\nospoon\vertxserver\PingPongServerVerticle.class

@@ -54,5 +54,16 @@ public class HandlerUtils<S extends DBApi> {
         players.forEach(player -> {connected.getAssignedHandlers(player).removeHandler(handler.getClass());handler.playerAttached(player);});
     }
 
+    public void attachHandlerToPlayer(MessageHandler handler, Player player)
+    {
+      connected.getAssignedHandlers(player).addHandler(handler);handler.playerAttached(player);
+    }
+
+    public void detachHandlerToPlayer(MessageHandler handler, Player player)
+    {
+        connected.getAssignedHandlers(player).removeHandler(handler.getClass());handler.playerAttached(player);
+    }
+
+
 
 }

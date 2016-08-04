@@ -9,7 +9,7 @@ import com.nospoon.vertxserver.core.model.Player;
 public abstract class MessageHandler<T extends DBApi> {
 
     private T dbApi;
-    private HandlerUtils handlerManager;
+    private HandlerUtils<T> handlerManager;
     private MessageSendUtils sendManager;
 
 
@@ -20,11 +20,11 @@ public abstract class MessageHandler<T extends DBApi> {
         return this;
     }
 
-    protected DBApi dbApi() {
+    protected T dbApi() {
         return dbApi;
     }
 
-    protected HandlerUtils handlerManager() {
+    protected HandlerUtils<T>  handlerManager() {
         return handlerManager;
     }
 
