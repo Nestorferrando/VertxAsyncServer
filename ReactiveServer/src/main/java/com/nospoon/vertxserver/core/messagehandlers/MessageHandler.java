@@ -44,6 +44,6 @@ public abstract class MessageHandler<S, T extends DBApi> {
 
     protected abstract HandlerConsumers createAttachmentConsumers();
 
-    protected abstract Consumer onStart();
+    protected abstract void onStart();
 
 }

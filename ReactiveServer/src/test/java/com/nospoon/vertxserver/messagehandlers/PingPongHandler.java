@@ -31,7 +31,6 @@ public class PingPongHandler extends MessageHandler<Void,FakeDBApi> {
     }
 
     @Override
-    protected Consumer onStart() {
-        return null;
+    protected void onStart() {
     }
 }
