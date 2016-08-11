@@ -1,6 +1,8 @@
 D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\jpromises\PromiseDeferred.java
 D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\vertxserver\core\inboxroute\MessageRouter.java
+D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\vertxserver\core\messagehandlers\HandlerConsumers.java
 D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\vertxserver\core\dbapi\DBApi.java
+D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\vertxserver\core\messagehandlers\PlayerAttacher.java
 D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\jpromises\Deferred.java
 D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\vertxserver\core\model\ConnectedPlayers.java
 D:\nospoon\VertxAsyncServer\ReactiveServer\src\main\java\com\nospoon\vertxserver\core\ServerVerticle.java

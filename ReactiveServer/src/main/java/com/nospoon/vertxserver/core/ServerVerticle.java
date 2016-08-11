@@ -35,8 +35,9 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
             connections.addPlayer(player, socket);
 
             logger.info("Connecion established, ip " + socket.remoteAddress());
+
             //add first handler
-            getHandlerUtils().createHandlerFor(getRootHandler(), Arrays.asList(player));
+            attachRootHandlerToPlayer(player);
 
             socket.handler(buffer -> router.enRouteMessage(socket, buffer.getString(0, buffer.length())));
             socket.closeHandler((handler) -> connections.removePlayer(socket));
@@ -55,12 +56,14 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
                 });
     }
 
-    private HandlerUtils<T> getHandlerUtils() {
+    protected HandlerUtils<T> createHandlerUtils() {
         return new HandlerUtils<>(connections,api);
     }
 
     protected abstract T initializeAPI();
 
-    protected abstract Class getRootHandler();
+ //   protected abstract Class getRootHandler();
+
+    protected abstract void attachRootHandlerToPlayer(Player player);
 
 }

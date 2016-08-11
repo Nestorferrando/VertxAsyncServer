@@ -22,7 +22,6 @@ public class MessageSendUtils {
     public void sendToPlayer(Player player, Object msg) {
 
         connected.getSocket(player).write(Buffer.buffer(MessageUtils.serialize(msg)));
-
     }
 
     public void sendToPlayers(List<Player> players, Object msg) {

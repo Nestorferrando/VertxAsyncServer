@@ -1,30 +1,40 @@
 package com.nospoon.vertxserver.core.messagehandlers;
 
 import com.nospoon.vertxserver.core.dbapi.DBApi;
-import com.nospoon.vertxserver.core.model.Player;
+
+import java.util.function.Consumer;
 
 /**
  * Created by Nestor on 7/26/2016.
  */
-public abstract class MessageHandler<T extends DBApi> {
+public abstract class MessageHandler<S, T extends DBApi> {
 
+    private S config;
     private T dbApi;
     private HandlerUtils<T> handlerManager;
     private MessageSendUtils sendManager;
 
-
-    MessageHandler initialize(T dbApi, HandlerUtils handlerManager, MessageSendUtils sendManager) {
+    MessageHandler<S, T> initialize(HandlerUtils handlerManager, MessageSendUtils sendManager, T dbApi, S config) {
         this.dbApi = dbApi;
+        this.config = config;
         this.handlerManager = handlerManager;
         this.sendManager = sendManager;
         return this;
+    }
+
+    public PlayerAttacher getAttacher() {
+        return handlerManager;
+    }
+
+    protected S config() {
+        return config;
     }
 
     protected T dbApi() {
         return dbApi;
     }
 
-    protected HandlerUtils<T>  handlerManager() {
+    protected HandlerUtils<T> handlerManager() {
         return handlerManager;
     }
 
@@ -32,10 +42,8 @@ public abstract class MessageHandler<T extends DBApi> {
         return sendManager;
     }
 
-    public abstract void playerAttached(Player player);
+    protected abstract HandlerConsumers createAttachmentConsumers();
 
-    public abstract void playerDetached(Player player);
-
-    public abstract void onStart();
+    protected abstract Consumer onStart();
 
 }

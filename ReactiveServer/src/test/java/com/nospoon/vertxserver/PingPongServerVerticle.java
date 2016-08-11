@@ -2,6 +2,8 @@ package com.nospoon.vertxserver;
 
 import com.nospoon.vertxserver.api.FakeDBApi;
 import com.nospoon.vertxserver.core.ServerVerticle;
+import com.nospoon.vertxserver.core.messagehandlers.HandlerUtils;
+import com.nospoon.vertxserver.core.model.Player;
 import com.nospoon.vertxserver.messagehandlers.PingPongHandler;
 
 /**
@@ -16,7 +18,8 @@ public class PingPongServerVerticle extends ServerVerticle<FakeDBApi> {
 
 
     @Override
-    protected Class getRootHandler() {
-        return PingPongHandler.class;
+    protected void attachRootHandlerToPlayer(Player player) {
+        PingPongHandler rootHandler =createHandlerUtils().createHandler(PingPongHandler.class);
+        rootHandler.getAttacher().attachPlayer(player);
     }
 }

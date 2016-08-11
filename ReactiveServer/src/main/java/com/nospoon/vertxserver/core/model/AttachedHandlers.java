@@ -16,7 +16,6 @@ public class AttachedHandlers {
 
     public AttachedHandlers() {
         handlers = new HashMap<>();
-
     }
 
     public MessageHandler addHandler(MessageHandler handler)

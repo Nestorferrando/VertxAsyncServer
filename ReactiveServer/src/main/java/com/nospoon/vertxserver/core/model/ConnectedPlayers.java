@@ -1,9 +1,11 @@
 package com.nospoon.vertxserver.core.model;
 
+import com.nospoon.vertxserver.core.dbapi.DBApi;
+import com.nospoon.vertxserver.core.messagehandlers.HandlerUtils;
+import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
 import io.vertx.core.net.NetSocket;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Nestor on 7/26/2016.
@@ -23,6 +25,7 @@ public class ConnectedPlayers {
         playerHandlers = new HashMap<>();
         messagesQueue = new HashMap<>();
     }
+
 
     public Player getPlayer(NetSocket socket) {
         return playersInServer.get(socket);
@@ -50,8 +53,9 @@ public class ConnectedPlayers {
         Player oldPlayer = playersInServer.remove(socket);
         reverseList.remove(oldPlayer);
         messagesQueue.remove(oldPlayer);
-        AttachedHandlers handlers = playerHandlers.remove(oldPlayer);
-        handlers.getHandlerTypes().forEach(handlerClass-> handlers.removeHandler(handlerClass).playerDetached(oldPlayer));
+        List<MessageHandler> handlers = new ArrayList<>(getAssignedHandlers(oldPlayer).getHandlers());
+        handlers.forEach(handler -> handler.getAttacher().detachPlayer(oldPlayer));
+        playerHandlers.remove(oldPlayer);
         return oldPlayer;
     }
 

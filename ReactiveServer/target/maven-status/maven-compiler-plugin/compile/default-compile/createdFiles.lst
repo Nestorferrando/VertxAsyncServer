@@ -20,6 +20,7 @@ com\nospoon\jpromises\Promises$2.class
 com\nospoon\jpromises\PromisesQueue.class
 com\nospoon\vertxserver\messages\MessageUtils.class
 com\nospoon\vertxserver\core\dbapi\DBApi.class
+com\nospoon\vertxserver\core\messagehandlers\PlayerAttacher.class
 com\nospoon\jpromises\PromiseDeferred$4.class
 com\nospoon\vertxserver\core\messagehandlers\MessageSendUtils.class
 com\nospoon\jpromises\PromiseDeferred$5$1.class
@@ -33,6 +34,7 @@ com\nospoon\vertxserver\core\model\Player.class
 com\nospoon\jpromises\Promises.class
 com\nospoon\jpromises\Promise.class
 com\nospoon\jpromises\PromiseDeferred.class
+com\nospoon\vertxserver\core\messagehandlers\HandlerConsumers.class
 com\nospoon\jpromises\Deferred.class
 com\nospoon\jpromises\PromiseDeferred$2.class
 com\nospoon\jpromises\PromiseDeferred$7.class

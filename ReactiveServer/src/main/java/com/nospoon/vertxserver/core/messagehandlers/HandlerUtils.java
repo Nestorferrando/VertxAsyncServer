@@ -4,28 +4,34 @@ import com.nospoon.vertxserver.core.dbapi.DBApi;
 import com.nospoon.vertxserver.core.model.ConnectedPlayers;
 import com.nospoon.vertxserver.core.model.Player;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Nestor on 7/27/2016.
  */
-public class HandlerUtils<S extends DBApi> {
+public class HandlerUtils<S extends DBApi> implements PlayerAttacher {
 
-
-    private ConnectedPlayers connected;
+    protected ConnectedPlayers connected;
     private S api;
+    private MessageHandler attachedHandler;
+    private HandlerConsumers attachedConsumers;
 
     public HandlerUtils(ConnectedPlayers connected, S api) {
         this.connected = connected;
         this.api = api;
     }
 
+    private void setConsumers(HandlerConsumers consumer) {
+        this.attachedConsumers = consumer;
+    }
 
-    public<T extends MessageHandler<S>> T  createHandler(Class<T> handlerType)
-    {
+    public <Q, T extends MessageHandler<Q, S>> T createHandler(Class<T> handlerType, Q configObject) {
         try {
             T handler = handlerType.newInstance();
-            handler.initialize(api,this, new MessageSendUtils(connected));
+            HandlerUtils<S> newUtils = new HandlerUtils(connected, api);
+            newUtils.attachedHandler = handler.initialize(newUtils, new MessageSendUtils(connected), api, configObject);
+            newUtils.setConsumers(newUtils.attachedHandler.createAttachmentConsumers());
             handler.onStart();
             return handler;
         } catch (InstantiationException e) {
@@ -36,34 +42,30 @@ public class HandlerUtils<S extends DBApi> {
         return null;
     }
 
-    public<T extends MessageHandler<S>> T  createHandlerFor(Class<T> handlerType, List<Player> playersToAttach)
-    {
-        T handler = createHandler(handlerType);
-        attachHandlerToPlayers(handler,playersToAttach);
-        return handler;
+    public <Q, T extends MessageHandler<Q, S>> T createHandler(Class<T> handlerType) {
+        return createHandler(handlerType, null);
     }
 
 
-    public void attachHandlerToPlayers(MessageHandler handler, List<Player> players)
-    {
-        players.forEach(player -> {connected.getAssignedHandlers(player).addHandler(handler);handler.playerAttached(player);});
+    public void attachPlayers(List<Player> players) {
+        players.forEach(player -> {
+            connected.getAssignedHandlers(player).addHandler(attachedHandler);
+            attachedConsumers.onPlayerAttached().accept(player);
+        });
     }
 
-    public void detachHandlerToPlayers(MessageHandler handler, List<Player> players)
-    {
-        players.forEach(player -> {connected.getAssignedHandlers(player).removeHandler(handler.getClass());handler.playerAttached(player);});
+    public void detachPlayers(List<Player> players) {
+        players.forEach(player -> {
+            connected.getAssignedHandlers(player).removeHandler(attachedHandler.getClass());
+            attachedConsumers.onPlayerDetached().accept(player);
+        });
     }
 
-    public void attachHandlerToPlayer(MessageHandler handler, Player player)
-    {
-      connected.getAssignedHandlers(player).addHandler(handler);handler.playerAttached(player);
+    public void attachPlayer(Player player) {
+        attachPlayers(Arrays.asList(player));
     }
 
-    public void detachHandlerToPlayer(MessageHandler handler, Player player)
-    {
-        connected.getAssignedHandlers(player).removeHandler(handler.getClass());handler.playerAttached(player);
+    public void detachPlayer(Player player) {
+        detachPlayers(Arrays.asList(player));
     }
-
-
-
 }
