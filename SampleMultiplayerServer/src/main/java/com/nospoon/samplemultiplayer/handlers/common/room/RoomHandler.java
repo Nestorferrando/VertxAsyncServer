@@ -1,8 +1,7 @@
 package com.nospoon.samplemultiplayer.handlers.common.room;
 
-import com.nospoon.samplemultiplayer.api.FakeMultiplayerDBApi;
+import com.nospoon.samplemultiplayer.handlers.MultiplayerHandler;
 import com.nospoon.samplemultiplayer.model.common.room.RoomProperties;
-import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
 import com.nospoon.vertxserver.core.model.Player;
 
 import java.util.ArrayList;
@@ -11,13 +10,11 @@ import java.util.List;
 /**
  * Created by Nestor on 8/2/2016.
  */
-public class RoomHandler extends MessageHandler<FakeMultiplayerDBApi> {
+public class RoomHandler extends MultiplayerHandler {
 
 
     private RoomProperties props;
     private List<Player> playersInRoom = new ArrayList<>();
-
-
 
 
     @Override
@@ -36,8 +33,8 @@ public class RoomHandler extends MessageHandler<FakeMultiplayerDBApi> {
         return this;
     }
 
-    public boolean isRoomFull(){
-        return playersInRoom.size()>=props.maxPlayers;
+    public boolean isRoomFull() {
+        return playersInRoom.size() >= props.maxPlayers;
     }
 
     @Override

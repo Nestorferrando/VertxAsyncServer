@@ -8,24 +8,18 @@ import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
 public class RoomProperties<T extends MessageHandler> {
 
     public int maxPlayers;
-    public String roomName;
     public int roomDifficulty;
     public Class<T> gameClass;
 
 
-    public RoomProperties(int maxPlayers, String roomName, int roomDifficulty,Class<T> gameClass) {
+    public RoomProperties(int maxPlayers, int roomDifficulty,Class<T> gameClass) {
         this.maxPlayers = maxPlayers;
-        this.roomName = roomName;
         this.roomDifficulty = roomDifficulty;
         this.gameClass = gameClass;
     }
 
     public int getMaxPlayers() {
         return maxPlayers;
-    }
-
-    public String getRoomName() {
-        return roomName;
     }
 
     public int getRoomDifficulty() {

@@ -1,10 +1,9 @@
 package com.nospoon.samplemultiplayer.handlers;
 
-import com.nospoon.samplemultiplayer.api.FakeMultiplayerDBApi;
-import com.nospoon.samplemultiplayer.handlers.game1.Game1HallHandler;
+import com.nospoon.samplemultiplayer.handlers.common.room.HallHandler;
 import com.nospoon.samplemultiplayer.handlers.game2.Game2Handler;
+import com.nospoon.vertxserver.core.messagehandlers.HandlerConsumers;
 import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
-import com.nospoon.vertxserver.core.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 /**
  * Created by Nestor on 8/1/2016.
  */
-public class RootHandler extends MessageHandler<FakeMultiplayerDBApi> {
+public class RootHandler extends MultiplayerHandler<Void> {
 
 
     private LoginHandler loginHandler;
@@ -21,28 +20,23 @@ public class RootHandler extends MessageHandler<FakeMultiplayerDBApi> {
 
 
         List<MessageHandler> mainHandlers = new ArrayList<>();
-        mainHandlers.add(handlerManager().createHandler(Game1HallHandler.class));
+        mainHandlers.add(handlerManager().createHandler(HallHandler.class));
         mainHandlers.add(handlerManager().createHandler(Game2Handler.class));
 
-        loginHandler = handlerManager().createHandler(LoginHandler.class);
-        loginHandler.setHandlersAvailableWhenLogin(mainHandlers);
+        loginHandler = handlerManager().createHandler(LoginHandler.class,mainHandlers);
 
+    }
+
+
+    @Override
+    protected HandlerConsumers createAttachmentConsumers() {
+        return new HandlerConsumers(
+                player -> loginHandler.getAttacher().attachPlayer(player),
+                player -> {});
     }
 
     @Override
-    public void playerAttached(Player player) {
-
-        handlerManager().attachHandlerToPlayer(loginHandler,player);
-
+    protected void onStart() {
     }
 
-    @Override
-    public void playerDetached(Player player) {
-
-    }
-
-    @Override
-    public void onStart() {
-
-    }
 }
