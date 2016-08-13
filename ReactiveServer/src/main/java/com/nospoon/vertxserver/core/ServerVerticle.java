@@ -49,6 +49,7 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
         })
                 .listen(10003, result -> {
                     if (result.succeeded()) {
+                        onStart();
                         fut.complete();
                     } else {
                         fut.fail(result.cause());
@@ -62,7 +63,7 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
 
     protected abstract T initializeAPI();
 
- //   protected abstract Class getRootHandler();
+    protected abstract void onStart();
 
     protected abstract void attachRootHandlerToPlayer(Player player);
 

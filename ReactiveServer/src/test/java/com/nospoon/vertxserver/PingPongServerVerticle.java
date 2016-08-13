@@ -22,4 +22,9 @@ public class PingPongServerVerticle extends ServerVerticle<FakeDBApi> {
         PingPongHandler rootHandler =createHandlerUtils().createHandler(PingPongHandler.class);
         rootHandler.getAttacher().attachPlayer(player);
     }
+
+    @Override
+    protected void onStart() {
+
+    }
 }
