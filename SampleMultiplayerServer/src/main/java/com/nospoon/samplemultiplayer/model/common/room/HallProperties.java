@@ -8,15 +8,15 @@ import java.util.List;
 /**
  * Created by Nestor on 8/2/2016.
  */
-public class HallProperties<Q,T extends MultiplayerHandler<Q>> {
+public class HallProperties<T extends TableProperties> {
 
-  private  List<RoomProperties<Q,T>> possibleRoomsProperties;
+private List<RoomProperties<T>> properties;
 
-    public HallProperties(List<RoomProperties<Q,T>> possibleRoomsProperties) {
-        this.possibleRoomsProperties = possibleRoomsProperties;
+    public HallProperties(List<RoomProperties<T>> properties) {
+        this.properties = properties;
     }
 
-    public List<RoomProperties<Q,T>> getPossibleRoomsProperties() {
-        return possibleRoomsProperties;
+    public List<RoomProperties<T>> getProperties() {
+        return properties;
     }
 }

@@ -2,6 +2,7 @@ package com.nospoon.samplemultiplayer.handlers.common.room;
 
 import com.nospoon.samplemultiplayer.handlers.MultiplayerHandler;
 import com.nospoon.samplemultiplayer.model.common.room.HallProperties;
+import com.nospoon.samplemultiplayer.model.common.room.TableProperties;
 import com.nospoon.vertxserver.core.messagehandlers.HandlerConsumers;
 import com.nospoon.vertxserver.core.model.Player;
 
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by Nestor on 8/2/2016.
  */
-public class HallHandler<Q, T extends MultiplayerHandler<Q>> extends MultiplayerHandler<HallProperties<Q, T>> {
+public class HallHandler<Q extends TableProperties> extends MultiplayerHandler<HallProperties<Q>> {
 
 
     private List<Player> playingPlayers = new ArrayList<>();
@@ -26,9 +27,7 @@ public class HallHandler<Q, T extends MultiplayerHandler<Q>> extends Multiplayer
     @Override
     public void onStart() {
 
-        config().getPossibleRoomsProperties().forEach(qtRoomProperties -> {
 
-        });
     }
 
 

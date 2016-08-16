@@ -1,21 +1,18 @@
 package com.nospoon.samplemultiplayer.model.common.room;
 
-import com.nospoon.samplemultiplayer.handlers.MultiplayerHandler;
-
 /**
  * Created by Nestor on 8/2/2016.
  */
-public class RoomProperties<Q, T extends MultiplayerHandler<Q>> {
+public class RoomProperties<T extends TableProperties> {
 
     public int maxPlayers;
     public int roomDifficulty;
-    public Class<T> gameClass;
+    public T TableProperties;
 
-
-    public RoomProperties(int maxPlayers, int roomDifficulty, Class<T> gameClass) {
+    public RoomProperties(int maxPlayers, int roomDifficulty, T tableProperties) {
         this.maxPlayers = maxPlayers;
         this.roomDifficulty = roomDifficulty;
-        this.gameClass = gameClass;
+        TableProperties = tableProperties;
     }
 
     public int getMaxPlayers() {
@@ -26,8 +23,7 @@ public class RoomProperties<Q, T extends MultiplayerHandler<Q>> {
         return roomDifficulty;
     }
 
-    public Class<T> getGameHandler() {
-        return gameClass;
+    public T getTableProperties() {
+        return TableProperties;
     }
-
 }
