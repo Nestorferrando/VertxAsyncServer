@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class HallHandler<Q extends TableProperties> extends MultiplayerHandler<HallProperties<Q>> {
 
-
     private List<Player> playingPlayers = new ArrayList<>();
     private List<RoomHandler> availableRooms = new ArrayList<>();
 

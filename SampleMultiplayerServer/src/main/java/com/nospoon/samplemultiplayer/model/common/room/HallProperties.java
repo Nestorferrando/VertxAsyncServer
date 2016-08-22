@@ -1,8 +1,5 @@
 package com.nospoon.samplemultiplayer.model.common.room;
 
-import com.nospoon.samplemultiplayer.handlers.MultiplayerHandler;
-import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
-
 import java.util.List;
 
 /**
@@ -10,13 +7,19 @@ import java.util.List;
  */
 public class HallProperties<T extends TableProperties> {
 
-private List<RoomProperties<T>> properties;
+    private String hallID;
+    private List<RoomProperties<T>> properties;
 
-    public HallProperties(List<RoomProperties<T>> properties) {
+    public HallProperties(String hallID, List<RoomProperties<T>> properties) {
+        this.hallID = hallID;
         this.properties = properties;
     }
 
     public List<RoomProperties<T>> getProperties() {
         return properties;
+    }
+
+    public String getHallID() {
+        return hallID;
     }
 }
