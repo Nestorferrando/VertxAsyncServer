@@ -20,12 +20,27 @@ public class HallHandler<Q extends TableProperties> extends MultiplayerHandler<H
 
     @Override
     protected HandlerConsumers createAttachmentConsumers() {
-        return null;
+        return new HandlerConsumers(player -> {
+            playingPlayers.add(player);
+        }, player -> {
+            if (playingPlayers.contains(player)) disconnectPlayer(player);
+        });
     }
+
+    private void disconnectPlayer(Player player) {
+        playingPlayers.remove(player);
+    }
+
 
     @Override
     public void onStart() {
 
+        //we create static rooms. Dynamic rooms on demand maybe in the future?
+        config().getProperties().forEach(roomProperty -> {
+            RoomHandler<Q> roomHandler = handlerManager().createHandler(RoomHandler.class, roomProperty);
+            availableRooms.add(roomHandler);
+
+        });
 
     }
 

@@ -13,7 +13,9 @@ import com.nospoon.vertxserver.core.ServerVerticle;
 import com.nospoon.vertxserver.core.model.Player;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Nestor on 8/12/2016.
@@ -33,7 +35,6 @@ public class SampleMPVerticle extends ServerVerticle<FakeMultiplayerDBApi> {
 
         root.getAttacher().attachPlayer(player);
 
-
     }
 
 
@@ -41,14 +42,14 @@ public class SampleMPVerticle extends ServerVerticle<FakeMultiplayerDBApi> {
     protected void onStart() {
 
         List<RoomProperties<Game1TableProperties>> roomsForGame1 = Arrays.asList(
-                new RoomProperties(50, new Game1TableProperties(new Range(0, 5), new Range(10, 200))),
-                new RoomProperties(50, new Game1TableProperties(new Range(5, 10), new Range(10, 500))),
-                new RoomProperties(50, new Game1TableProperties(new Range(10, 15), new Range(10, 1000))));
+                new RoomProperties("EasyRoom",50, new Game1TableProperties(new Range(0, 5), new Range(10, 200))),
+                new RoomProperties("MediumRoom", 50, new Game1TableProperties(new Range(5, 10), new Range(10, 500))),
+                new RoomProperties("HardRoom", 50, new Game1TableProperties(new Range(10, 15), new Range(10, 1000))));
 
-        HallHandler<Game1TableProperties> game1Hall = createHandlerUtils().createHandler(HallHandler.class, new HallProperties("Game1Server",roomsForGame1));
+        HallHandler<Game1TableProperties> game1Hall = createHandlerUtils().createHandler(HallHandler.class, new HallProperties(roomsForGame1));
 
-        List<MultiplayerHandler> initialHandlers = Arrays.asList(game1Hall);
-
+        Map<String, MultiplayerHandler> initialHandlers = new HashMap<>();
+        initialHandlers.put("game1Server",game1Hall);
 
         root = createHandlerUtils().createHandler(RootHandler.class, new InitialHandlers(initialHandlers));
     }

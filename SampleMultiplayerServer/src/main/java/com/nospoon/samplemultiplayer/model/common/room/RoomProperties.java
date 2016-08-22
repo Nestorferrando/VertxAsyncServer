@@ -5,10 +5,12 @@ package com.nospoon.samplemultiplayer.model.common.room;
  */
 public class RoomProperties<T extends TableProperties> {
 
+    public String roomID;
     public int maxPlayers;
     public T TableProperties;
 
-    public RoomProperties(int maxPlayers,  T tableProperties) {
+    public RoomProperties(String roomID, int maxPlayers,  T tableProperties) {
+        this.roomID = roomID;
         this.maxPlayers = maxPlayers;
         TableProperties = tableProperties;
     }

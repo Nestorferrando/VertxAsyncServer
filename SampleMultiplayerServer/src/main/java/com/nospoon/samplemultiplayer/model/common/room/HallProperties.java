@@ -7,11 +7,10 @@ import java.util.List;
  */
 public class HallProperties<T extends TableProperties> {
 
-    private String hallID;
+
     private List<RoomProperties<T>> properties;
 
-    public HallProperties(String hallID, List<RoomProperties<T>> properties) {
-        this.hallID = hallID;
+    public HallProperties(List<RoomProperties<T>> properties) {
         this.properties = properties;
     }
 
@@ -19,7 +18,4 @@ public class HallProperties<T extends TableProperties> {
         return properties;
     }
 
-    public String getHallID() {
-        return hallID;
-    }
 }
