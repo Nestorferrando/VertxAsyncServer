@@ -34,6 +34,11 @@ public class Promises {
      * @param value The promised value
      * @return The resolved {@link Promise}
      */
+
+    public static Promise<Void> resolve() {
+        return Promises.resolve(null);
+    }
+
     public static <T> Promise<T> resolve(T value) {
         final Deferred<T> deferred = Promises.defer();
         if (value instanceof Exception) {
