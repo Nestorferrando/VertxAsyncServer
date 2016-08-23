@@ -31,7 +31,6 @@ public class Game1TableProperties implements TableProperties<Game1lHandler,Game1
 
 
 
-
     @Override
     public Class getGameType() {
         return handlerClass;

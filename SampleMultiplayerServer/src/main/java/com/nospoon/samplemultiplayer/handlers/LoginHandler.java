@@ -43,7 +43,7 @@ public class LoginHandler extends MultiplayerHandler<Void> {
                     else{
                         loginFailure.forEach(playerConsumer -> playerConsumer.accept(player));
                     }
-                    sendManager().sendToPlayer(player, new LoginResponse(result));
+                    send().toPlayer(player, new LoginResponse(result));
                 }).thenMap(result -> null);
     }
 

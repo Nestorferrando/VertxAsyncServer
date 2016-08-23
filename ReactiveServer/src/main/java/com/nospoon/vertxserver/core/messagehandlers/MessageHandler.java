@@ -38,7 +38,7 @@ public abstract class MessageHandler<S, T extends DBApi> {
         return handlerManager;
     }
 
-    protected MessageSendUtils sendManager() {
+    protected MessageSendUtils send() {
         return sendManager;
     }
 

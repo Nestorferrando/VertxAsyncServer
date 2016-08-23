@@ -19,18 +19,18 @@ public class MessageSendUtils {
         this.connected = connected;
     }
 
-    public void sendToPlayer(Player player, Object msg) {
+    public void toPlayer(Player player, Object msg) {
 
         connected.getSocket(player).write(Buffer.buffer(MessageUtils.serialize(msg)));
     }
 
-    public void sendToPlayers(List<Player> players, Object msg) {
+    public void toPlayers(List<Player> players, Object msg) {
         String stream =MessageUtils.serialize(msg);
         players.forEach(player-> connected.getSocket(player).write(Buffer.buffer(stream)));
     }
 
 
-    public void sendToPlayersBut(List<Player> players, Player rejectedPlayer, Object msg) {
+    public void toPlayersBut(List<Player> players, Player rejectedPlayer, Object msg) {
         String stream =MessageUtils.serialize(msg);
         players.forEach(player->{if (!player.equals(rejectedPlayer))connected.getSocket(player).write(Buffer.buffer(stream));});
     }
