@@ -3,26 +3,26 @@ package com.nospoon.samplemultiplayer.model.common;
 /**
  * Created by Nestor on 8/16/2016.
  */
-public class Range<T extends Comparable<T>> {
+public class Range {
 
-    private T min;
-    private T max;
+    private int min;
+    private int max;
 
-    public Range(T min, T max) {
+    public Range(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
-    public boolean isInside(T value)
+    public boolean isInside(int value)
     {
-        return value.compareTo(min)>=0  && value.compareTo(max)<=0;
+        return value>=min  && value<=max;
     }
 
-    public T getMin() {
+    public int getMin() {
         return min;
     }
 
-    public T getMax() {
+    public int getMax() {
         return max;
     }
 }

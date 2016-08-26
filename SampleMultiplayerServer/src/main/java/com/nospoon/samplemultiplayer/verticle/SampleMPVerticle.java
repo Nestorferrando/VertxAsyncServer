@@ -5,7 +5,7 @@ import com.nospoon.samplemultiplayer.handlers.MultiplayerHandler;
 import com.nospoon.samplemultiplayer.handlers.RootHandler;
 import com.nospoon.samplemultiplayer.handlers.common.room.HallHandler;
 import com.nospoon.samplemultiplayer.model.common.Range;
-import com.nospoon.samplemultiplayer.model.common.game1.Game1TableProperties;
+import com.nospoon.samplemultiplayer.model.game1.Game1TableProperties;
 import com.nospoon.samplemultiplayer.model.common.room.HallProperties;
 import com.nospoon.samplemultiplayer.model.common.room.RoomProperties;
 import com.nospoon.samplemultiplayer.model.common.root.InitialHandlers;

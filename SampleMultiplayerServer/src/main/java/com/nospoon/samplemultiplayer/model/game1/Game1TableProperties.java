@@ -1,32 +1,35 @@
-package com.nospoon.samplemultiplayer.model.common.game1;
+package com.nospoon.samplemultiplayer.model.game1;
 
-import com.google.gson.Gson;
 import com.nospoon.samplemultiplayer.handlers.game1.Game1lHandler;
 import com.nospoon.samplemultiplayer.model.common.Range;
 import com.nospoon.samplemultiplayer.model.common.room.TableProperties;
+
+import java.util.function.Consumer;
 
 /**
  * Created by Nestor on 8/16/2016.
  */
 public class Game1TableProperties extends TableProperties<Game1lHandler,Game1Config, Game1TableSelections> {
 
+    private static final int MAX_PLAYERS = 4;
+
     private Class<Game1lHandler> handlerClass;
-    private Range<Integer> difficulty;
-    private Range<Integer> credits;
+    private Range difficulty;
+    private Range credits;
 
 
-    public Game1TableProperties(Range<Integer> difficulty, Range<Integer> credits) {
-        super(new Game1TableSelections(credits.getMin(),difficulty.getMin()), Game1TableSelections.class);
+    public Game1TableProperties(Range difficulty, Range credits) {
+        super(MAX_PLAYERS,new Game1TableSelections(credits.getMin(),difficulty.getMin()), Game1TableSelections.class);
         this.difficulty = difficulty;
         this.credits = credits;
         this.handlerClass=Game1lHandler.class;
     }
 
-    public Range<Integer> getDifficulty() {
+    public Range getDifficulty() {
         return difficulty;
     }
 
-    public Range<Integer> getCredits() {
+    public Range getCredits() {
         return credits;
     }
 
@@ -37,7 +40,7 @@ public class Game1TableProperties extends TableProperties<Game1lHandler,Game1Con
     }
 
     @Override
-    public Game1Config getGameConfig() {
-        return new Game1Config(selections.getSelectedDifficulty(),selections.getSelectedCredits());
+    public Game1Config getGameConfig(Consumer<Void> gameFinishedConsumer) {
+        return new Game1Config(selections.getSelectedDifficulty(),selections.getSelectedCredits(),gameFinishedConsumer);
     }
 }

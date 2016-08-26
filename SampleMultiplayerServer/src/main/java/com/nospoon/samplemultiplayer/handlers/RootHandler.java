@@ -47,7 +47,7 @@ public class RootHandler extends MultiplayerHandler<InitialHandlers> {
             config().getHandlers().get(request.getServiceID()).getAttacher().attachPlayer(player);
         }
 
-        sendManager().sendToPlayer(player,new ConnectToServiceResponse(validService));
+        send().toPlayer(player,new ConnectToServiceResponse(validService));
         return Promises.resolve(null);
     }
 
@@ -59,7 +59,7 @@ public class RootHandler extends MultiplayerHandler<InitialHandlers> {
             config().getHandlers().get(request.getServiceID()).getAttacher().detachPlayer(player);
         }
 
-        sendManager().sendToPlayer(player,new DisconnectToServiceResponse(validService));
+        send().toPlayer(player,new DisconnectToServiceResponse(validService));
         return Promises.resolve(null);
     }
 

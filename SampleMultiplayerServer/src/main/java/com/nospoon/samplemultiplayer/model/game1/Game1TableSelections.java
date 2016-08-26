@@ -1,4 +1,4 @@
-package com.nospoon.samplemultiplayer.model.common.game1;
+package com.nospoon.samplemultiplayer.model.game1;
 
 /**
  * Created by Nestor on 8/16/2016.

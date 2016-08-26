@@ -14,6 +14,7 @@ import com.nospoon.samplemultiplayer.messages.fromserver.room.JoinTableResponse;
 import com.nospoon.samplemultiplayer.model.common.room.RoomProperties;
 import com.nospoon.samplemultiplayer.model.common.room.TableConfig;
 import com.nospoon.samplemultiplayer.model.common.room.TableProperties;
+import com.nospoon.samplemultiplayer.model.common.room.TableState;
 import com.nospoon.vertxserver.core.messagehandlers.HandlerConsumers;
 import com.nospoon.vertxserver.core.model.Player;
 
@@ -70,7 +71,7 @@ public class RoomHandler<Q extends TableProperties> extends MultiplayerHandler<R
 
     public Promise<Void> on(JoinTableRequest request, Player player) {
 
-        Optional<TableHandler<Q>> table = tables.stream().filter(tab->tab.getID().equals(request.getID()) && !tab.hasPlayer(player)).findAny();
+        Optional<TableHandler<Q>> table = tables.stream().filter(tab->tab.getID().equals(request.getID()) && !tab.hasPlayer(player) && tab.getState()== TableState.OPEN).findAny();
 
         if (table.isPresent())
         {
