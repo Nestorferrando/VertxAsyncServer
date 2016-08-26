@@ -1,4 +1,4 @@
-package com.nospoon.samplemultiplayer.messages.fromserver.hall;
+package com.nospoon.samplemultiplayer.messages.fromserver.common.hall;
 
 /**
  * Created by Nestor on 22/08/2016.

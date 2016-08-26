@@ -40,7 +40,7 @@ public class Game1TableProperties extends TableProperties<Game1lHandler,Game1Con
     }
 
     @Override
-    public Game1Config getGameConfig(Consumer<Void> gameFinishedConsumer) {
-        return new Game1Config(selections.getSelectedDifficulty(),selections.getSelectedCredits(),gameFinishedConsumer);
+    public Game1Config getGameConfig(Consumer<Void> gameFinishedConsumer,int currenPlayers) {
+        return new Game1Config(currenPlayers,selections.getSelectedDifficulty(),selections.getSelectedCredits(),gameFinishedConsumer);
     }
 }

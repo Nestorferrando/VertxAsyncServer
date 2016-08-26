@@ -1,4 +1,4 @@
-package com.nospoon.samplemultiplayer.messages.fromclient.root;
+package com.nospoon.samplemultiplayer.messages.fromclient.common.root;
 
 /**
  * Created by Nestor on 22/08/2016.

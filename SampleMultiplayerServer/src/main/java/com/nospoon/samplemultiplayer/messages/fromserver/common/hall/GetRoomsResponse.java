@@ -1,4 +1,4 @@
-package com.nospoon.samplemultiplayer.messages.fromserver.hall;
+package com.nospoon.samplemultiplayer.messages.fromserver.common.hall;
 
 import java.util.List;
 

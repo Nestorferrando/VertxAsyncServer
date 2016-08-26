@@ -1,8 +1,8 @@
 package com.nospoon.samplemultiplayer.handlers.common.room;
 
 import com.nospoon.samplemultiplayer.handlers.MultiplayerHandler;
-import com.nospoon.samplemultiplayer.messages.fromserver.table.GameStarted;
-import com.nospoon.samplemultiplayer.messages.fromserver.table.TableClosed;
+import com.nospoon.samplemultiplayer.messages.fromserver.common.table.GameStarted;
+import com.nospoon.samplemultiplayer.messages.fromserver.common.table.TableClosed;
 import com.nospoon.samplemultiplayer.model.common.room.TableConfig;
 import com.nospoon.samplemultiplayer.model.common.room.TableProperties;
 import com.nospoon.samplemultiplayer.model.common.room.TableState;
@@ -71,7 +71,7 @@ public class TableHandler<T extends TableProperties> extends MultiplayerHandler<
         send().toPlayers(players, new GameStarted());
 
         handlerManager()
-                .createHandler(config().getTableProperties().getGameType(), config().getTableProperties().getGameConfig(onGameFinished()))
+                .createHandler(config().getTableProperties().getGameType(), config().getTableProperties().getGameConfig(onGameFinished(),players.size()))
                 .getAttacher().attachPlayers(players);
 
 

@@ -7,11 +7,13 @@ import java.util.function.Consumer;
  */
 public class Game1Config {
 
+    private int playersAmount;
     private int difficulty;
     private int credits;
     private Consumer<Void> gameFinishedConsumer;
 
-    public Game1Config(int difficulty, int credits, Consumer<Void> gameFinishedConsumer) {
+    public Game1Config(int playersAmount,int difficulty, int credits, Consumer<Void> gameFinishedConsumer) {
+        this.playersAmount = playersAmount;
         this.difficulty = difficulty;
         this.credits = credits;
         this.gameFinishedConsumer = gameFinishedConsumer;
@@ -27,5 +29,9 @@ public class Game1Config {
 
     public Consumer<Void> getGameFinishedConsumer() {
         return gameFinishedConsumer;
+    }
+
+    public int getPlayersAmount() {
+        return playersAmount;
     }
 }

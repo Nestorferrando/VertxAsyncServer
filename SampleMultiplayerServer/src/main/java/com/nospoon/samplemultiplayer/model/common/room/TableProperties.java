@@ -22,7 +22,7 @@ public abstract class TableProperties<T,Q,S> {
 
     public abstract Class<T> getGameType();
 
-    public abstract Q getGameConfig(Consumer<Void> gameFinishedConsumer);
+    public abstract Q getGameConfig(Consumer<Void> gameFinishedConsumer,int currenPlayers);
 
     public int getSize() {
         return size;

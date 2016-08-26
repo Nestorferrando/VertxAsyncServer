@@ -2,10 +2,10 @@ package com.nospoon.samplemultiplayer.handlers;
 
 import com.nospoon.jpromises.Promise;
 import com.nospoon.jpromises.Promises;
-import com.nospoon.samplemultiplayer.messages.fromclient.root.ConnectToServiceRequest;
-import com.nospoon.samplemultiplayer.messages.fromclient.root.DisconnectToServiceRequest;
-import com.nospoon.samplemultiplayer.messages.fromserver.root.ConnectToServiceResponse;
-import com.nospoon.samplemultiplayer.messages.fromserver.root.DisconnectToServiceResponse;
+import com.nospoon.samplemultiplayer.messages.fromclient.common.root.ConnectToServiceRequest;
+import com.nospoon.samplemultiplayer.messages.fromclient.common.root.DisconnectToServiceRequest;
+import com.nospoon.samplemultiplayer.messages.fromserver.common.root.ConnectToServiceResponse;
+import com.nospoon.samplemultiplayer.messages.fromserver.common.root.DisconnectToServiceResponse;
 import com.nospoon.samplemultiplayer.model.common.root.InitialHandlers;
 import com.nospoon.vertxserver.core.messagehandlers.HandlerConsumers;
 import com.nospoon.vertxserver.core.model.Player;
