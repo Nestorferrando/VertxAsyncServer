@@ -3,6 +3,7 @@ package com.nospoon.vertxserver
 import com.nospoon.vertxserver.api.FakeDBApi
 import com.nospoon.vertxserver.core.ServerVerticle
 import com.nospoon.vertxserver.core.model.Player
+import com.nospoon.vertxserver.messagehandlers.PingPongConfig
 import com.nospoon.vertxserver.messagehandlers.PingPongHandler
 
 
@@ -25,7 +26,7 @@ class PingPongServerVerticle : ServerVerticle<FakeDBApi>() {
     }
 
     override fun onStart() {
-        rootHandler = PingPongHandler(connections, api, null)
+        rootHandler = PingPongHandler(connections, api, PingPongConfig())
         connections.registerHandler(rootHandler!!)
     }
 }

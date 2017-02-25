@@ -53,7 +53,7 @@ class CoreServerManager : PlayerAttacher {
         val oldPlayer = playersInServer.remove(socket)!!
         reverseList.remove(oldPlayer)
         messagesQueue.remove(oldPlayer)
-        getAssignedHandlers(oldPlayer).getHandlers().forEach { handler -> handler.attachmentConsumers().onPlayerDetached().accept(oldPlayer)}
+        getAssignedHandlers(oldPlayer).getHandlers().forEach { handler -> handler.attachmentConsumers().onPlayerDetached().invoke(oldPlayer)}
         playerHandlers.remove(oldPlayer)
         return oldPlayer
     }
@@ -71,13 +71,13 @@ class CoreServerManager : PlayerAttacher {
 
         var handler = allHandlers[handlerID]!!
         getAssignedHandlers(player).addHandler(handler)
-        handler.attachmentConsumers().onPlayerAttached().accept(player)
+        handler.attachmentConsumers().onPlayerAttached().invoke(player)
     }
 
     override fun detachPlayer(player: Player, handlerID:String) {
 
         var handler = allHandlers[handlerID]!!
         getAssignedHandlers(player).removeHandler(handler)
-        handler.attachmentConsumers().onPlayerDetached().accept(player)
+        handler.attachmentConsumers().onPlayerDetached().invoke(player)
     }
 }
