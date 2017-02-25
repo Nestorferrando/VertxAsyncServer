@@ -3,7 +3,7 @@ package com.nospoon.vertxserver.client;
 import com.nospoon.jpromises.Deferred;
 import com.nospoon.jpromises.Promise;
 import com.nospoon.jpromises.Promises;
-import com.nospoon.vertxserver.messages.MessageUtils;
+import com.nospoon.vertxserver.messages.MessageKt;
 import com.nospoon.vertxserver.messages.fromclient.Ping;
 import io.vertx.core.net.NetSocket;
 
@@ -27,10 +27,10 @@ public class SampleClient {
         Deferred<Void> deferred = Promises.defer();
 
         clientSocket.handler(buffer -> {
-            MessageUtils.deserialize(buffer.getString(0, buffer.length())).forEach(message -> {
+            MessageKt.deserialize(buffer.getString(0, buffer.length())).forEach(message -> {
 
                 System.out.println("envio mensaje num "+messages );
-                clientSocket.write(MessageUtils.serialize(new Ping("ping num " + messages)));
+                clientSocket.write(MessageKt.serialize(new Ping("ping num " + messages)));
                 messages++;
                 if (messages == messageAmount) {
                     clientSocket.close();
@@ -41,7 +41,7 @@ public class SampleClient {
 
         });
 
-        clientSocket.write(MessageUtils.serialize(new Ping("ping num " + messages)));
+        clientSocket.write(MessageKt.serialize(new Ping("ping num " + messages)));
         return deferred.promise();
     }
 

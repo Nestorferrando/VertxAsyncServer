@@ -36,8 +36,8 @@ public class TableHandler<T extends TableProperties> extends MultiplayerHandler<
         return players.contains(player);
     }
 
-    public TableConfig<T> getConfig() {
-        return config();
+    public String getSelectedParameters() {
+        return config().getTableProperties().getSerializedSelection();
     }
 
     public TableState getState() {
@@ -57,13 +57,13 @@ public class TableHandler<T extends TableProperties> extends MultiplayerHandler<
             } else {
                 players.remove(player);
             }
-
         });
     }
 
     private void closeTable() {
         send().toPlayers(players, new TableClosed());
         getAttacher().detachPlayers(players);
+        config().getOnTableFinished().accept(config().getTableID());
     }
 
     private void startGame() {
@@ -91,4 +91,6 @@ public class TableHandler<T extends TableProperties> extends MultiplayerHandler<
     protected void onStart() {
 
     }
+
+
 }

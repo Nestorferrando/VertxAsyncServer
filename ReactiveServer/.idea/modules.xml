@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/my-first-app.iml" filepath="$PROJECT_DIR$/my-first-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ReactiveServer.iml" filepath="$PROJECT_DIR$/ReactiveServer.iml" />
     </modules>
   </component>
 </project>
