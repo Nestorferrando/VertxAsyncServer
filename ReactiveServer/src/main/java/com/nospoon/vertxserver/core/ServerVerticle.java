@@ -2,29 +2,27 @@ package com.nospoon.vertxserver.core;
 
 import com.nospoon.vertxserver.core.dbapi.DBApi;
 import com.nospoon.vertxserver.core.inboxroute.MessageRouter;
-import com.nospoon.vertxserver.core.messagehandlers.HandlerUtils;
-import com.nospoon.vertxserver.core.model.ConnectedPlayers;
+import com.nospoon.vertxserver.core.model.CoreServerManager;
 import com.nospoon.vertxserver.core.model.Player;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
 
     private Logger logger = LogManager.getLogger();
 
-    private ConnectedPlayers connections;
-    private T api;
-    private MessageRouter router;
+    protected CoreServerManager connections;
+    protected T api;
+    protected MessageRouter router;
 
     @Override
     public void start(Future<Void> fut) {
 
-        connections = new ConnectedPlayers();
+        connections = new CoreServerManager();
         api = initializeAPI();
         router = new MessageRouter(connections);
 
@@ -32,7 +30,7 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
         {
             String sessionID = UUID.randomUUID().toString();
             Player player = new Player(sessionID);
-            connections.addPlayer(player, socket);
+            connections.sessionStarted(player, socket);
 
             logger.info("Connecion established, ip " + socket.remoteAddress());
 
@@ -40,7 +38,7 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
             attachRootHandlerToPlayer(player);
 
             socket.handler(buffer -> router.enRouteMessage(socket, buffer.getString(0, buffer.length())));
-            socket.closeHandler((handler) -> connections.removePlayer(socket));
+            socket.closeHandler((handler) -> connections.sessionFinished(socket));
 
             socket.exceptionHandler((error) -> {
                 logger.error("Socket error " + error.toString());
@@ -55,10 +53,6 @@ public abstract class ServerVerticle<T extends DBApi> extends AbstractVerticle {
                         fut.fail(result.cause());
                     }
                 });
-    }
-
-    protected HandlerUtils<T> createHandlerUtils() {
-        return new HandlerUtils<>(connections,api);
     }
 
     protected abstract T initializeAPI();

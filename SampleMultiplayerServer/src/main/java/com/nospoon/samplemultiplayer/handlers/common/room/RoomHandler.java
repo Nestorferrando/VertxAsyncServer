@@ -21,6 +21,7 @@ import com.nospoon.vertxserver.core.model.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -41,7 +42,7 @@ public class RoomHandler<Q extends TableProperties> extends MultiplayerHandler<R
 
         tables.forEach(table -> {
             tableIDs.add(table.getID());
-            tableSelections.add(table.getConfig().getTableProperties().getSerializedSelection());
+            tableSelections.add(table.getSelectedParameters());
             tablePlayers.add(table.getPlayers().stream().map(tableplayer -> dbApi().getMultiplayerID(tableplayer.getSession())).collect(Collectors.toList()));
 
         });
@@ -82,11 +83,17 @@ public class RoomHandler<Q extends TableProperties> extends MultiplayerHandler<R
         return Promises.resolve();
     }
 
-
+private Consumer<String> onTableClosed()
+{
+    return tableId -> {
+        TableHandler closedTable =tables.stream().filter(table->table.getID().equals(tableId)).findFirst().get();
+        tables.remove(closedTable);
+    };
+}
 
     private String createTableForPlayer(Player master) {
 
-        TableHandler<Q> table = handlerManager().createHandler(TableHandler.class, new TableConfig<Q>(config().TableProperties, "table" + tableCounter));
+        TableHandler<Q> table = handlerManager().createHandler(TableHandler.class, new TableConfig(config().TableProperties, "table" + tableCounter,onTableClosed()));
         tables.add(table);
         table.getAttacher().attachPlayer(master);
         tableCounter++;
