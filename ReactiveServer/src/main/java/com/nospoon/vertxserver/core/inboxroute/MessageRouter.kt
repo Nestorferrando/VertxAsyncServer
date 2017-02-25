@@ -3,7 +3,7 @@ package com.nospoon.vertxserver.core.inboxroute
 import com.nospoon.jpromises.Promise
 import com.nospoon.jpromises.Promises
 import com.nospoon.vertxserver.core.messagehandlers.MessageHandler
-import com.nospoon.vertxserver.core.model.ConnectedPlayers
+import com.nospoon.vertxserver.core.model.CoreServerManager
 import com.nospoon.vertxserver.core.model.Player
 import com.nospoon.vertxserver.messages.*
 import io.vertx.core.net.NetSocket
@@ -14,7 +14,7 @@ import java.lang.reflect.Method
 /**
  * Created by Nestor on 7/26/2016.
  */
-class MessageRouter(private val players: ConnectedPlayers) {
+class MessageRouter(private val players: CoreServerManager) {
 
     fun enRouteMessage(origin: NetSocket, serializedMsgs: String) {
 

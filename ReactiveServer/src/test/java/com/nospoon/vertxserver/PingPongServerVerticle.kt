@@ -21,10 +21,11 @@ class PingPongServerVerticle : ServerVerticle<FakeDBApi>() {
 
     override fun attachRootHandlerToPlayer(player: Player) {
 
-        rootHandler?.attachPlayer(player)
+        connections.attachPlayer(player, rootHandler!!.ID)
     }
 
     override fun onStart() {
         rootHandler = PingPongHandler(connections, api, null)
+        connections.registerHandler(rootHandler!!)
     }
 }

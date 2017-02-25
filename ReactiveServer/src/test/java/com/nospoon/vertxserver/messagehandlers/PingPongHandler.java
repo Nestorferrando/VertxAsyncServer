@@ -5,7 +5,7 @@ import com.nospoon.jpromises.Promises;
 import com.nospoon.vertxserver.api.FakeDBApi;
 import com.nospoon.vertxserver.core.messagehandlers.HandlerConsumers;
 import com.nospoon.vertxserver.core.messagehandlers.MessageHandler;
-import com.nospoon.vertxserver.core.model.ConnectedPlayers;
+import com.nospoon.vertxserver.core.model.CoreServerManager;
 import com.nospoon.vertxserver.core.model.Player;
 import com.nospoon.vertxserver.messages.fromclient.Ping;
 import com.nospoon.vertxserver.messages.fromserver.Pong;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class PingPongHandler extends MessageHandler<Void,FakeDBApi> {
 
 
-    public PingPongHandler(@NotNull ConnectedPlayers connected, @NotNull FakeDBApi dbApi, Void config) {
+    public PingPongHandler(@NotNull CoreServerManager connected, @NotNull FakeDBApi dbApi, Void config) {
         super(connected, dbApi, config);
     }
 

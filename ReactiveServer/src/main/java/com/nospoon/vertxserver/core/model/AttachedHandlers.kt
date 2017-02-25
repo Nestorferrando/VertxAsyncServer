@@ -10,25 +10,18 @@ import java.util.stream.Collectors
  */
 class AttachedHandlers {
 
-    private val handlers: MutableMap<Class<*>, MessageHandler<*, *>>
-
-    init {
-        handlers = HashMap<Class<*>, MessageHandler<*, *>>()
-    }
+    private val handlers: ArrayList<MessageHandler<*, *>> = ArrayList()
 
     public fun addHandler(handler: MessageHandler<*, *>) {
-        handlers.put(handler::class.java, handler)
+        handlers.add(handler)
     }
 
-    public fun removeHandler(handlerClass: Class<*>) {
+    public fun removeHandler(handlerClass: MessageHandler<*, *>) {
         handlers.remove(handlerClass)
     }
 
-    val handlerTypes: List<Class<*>>
-        get() = handlers.keys.toList()
-
     public fun getHandlers(): List<MessageHandler<*, *>> {
-        return handlers.values.toList()
+        return handlers
     }
 
 }

@@ -8,12 +8,14 @@ import com.nospoon.vertxserver.core.model.Player
 interface PlayerAttacher {
 
 
-    fun attachPlayers(players: List<Player>)
+    fun attachPlayers(players: List<Player>, handlerID:String)
 
-    fun detachPlayers(players: List<Player>)
 
-    fun attachPlayer(player: Player)
+    fun detachPlayers(players: List<Player>, handlerID:String)
 
-    fun detachPlayer(player: Player)
+
+    fun attachPlayer(player: Player, handlerID:String)
+
+    fun detachPlayer(player: Player, handlerID:String)
 
 }
